@@ -48,14 +48,29 @@ class CyrillicTest < Minitest::Test
     assert_equal "сенсей", Yanagi.cyrillic("せんせい")
   end
 
-  def test_sokuon_gemination
-    # Sokuon before digraphs and consonants
-    assert_equal "момідджі", Yanagi.cyrillic("もみっじ")
-    assert_equal "шіччяку", Yanagi.cyrillic("しっちゃく")
-    assert_equal "тешшю", Yanagi.cyrillic("てっしゅう")
+  # Sokuon doubles before the plosives п and к, which Ukrainian carries
+  # comfortably.
+  def test_sokuon_geminates_before_plosives
     assert_equal "іппекі", Yanagi.cyrillic("いっぺき")
-    assert_equal "хоккекьо", Yanagi.cyrillic("ほっけきょう")
     assert_equal "кеппекі", Yanagi.cyrillic("けっぺき")
+    assert_equal "ґоджюппо", Yanagi.cyrillic("ごじゅっぽ")
+    assert_equal "ніккай", Yanagi.cyrillic("にっかい")
+    assert_equal "ґаккай", Yanagi.cyrillic("がっかい")
+    assert_equal "хоккекьо", Yanagi.cyrillic("ほっけきょう")
+    assert_equal "джяккоджі", Yanagi.cyrillic("じゃっこうじ")
+  end
+
+  # Before sibilants and affricates it is not rendered: шш, чч and ддж read
+  # as foreign in Ukrainian.
+  def test_sokuon_not_rendered_before_sibilants
+    assert_equal "шічяку", Yanagi.cyrillic("しっちゃく")
+    assert_equal "тешю", Yanagi.cyrillic("てっしゅう")
+    assert_equal "доджіндзаші", Yanagi.cyrillic("どうじんざっし")
+  end
+
+  # 紅葉 has no sokuon at all, so じ renders as a plain джі.
+  def test_no_sokuon_no_gemination
+    assert_equal "моміджі", Yanagi.cyrillic("もみじ")
   end
 
   def test_moraic_n

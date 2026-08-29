@@ -1,14 +1,18 @@
 # Combinatorial and contextual transliteration rules
 ---
 sokuon:
-  rule: "っ (sokuon) geminates the following rendered consonant, including digraphs"
+  rule: "っ (sokuon) doubles the following consonant before the plosives «п» and «к»; before sibilants and affricates it is not rendered"
+  geminating: ["п", "к"]
   examples:
-    - { kana: "もみっじ", rendered: "момідджі" }
-    - { kana: "ちっちゃく", rendered: "чіччаку" }
-    - { kana: "てっしゅう", rendered: "тешшю" }
     - { kana: "いっぺき", rendered: "іппекі" }
-    - { kana: "ほっけきょう", rendered: "хоккекьо" }
     - { kana: "けっぺき", rendered: "кеппекі" }
+    - { kana: "ごじゅっぽ", rendered: "ґоджюппо" }
+    - { kana: "にっかい", rendered: "Ніккай" }
+    - { kana: "ほっけきょう", rendered: "Хоккекьо" }
+    - { kana: "がっかい", rendered: "Ґаккай" }
+    - { kana: "しっちゃく", rendered: "шічяку" }
+    - { kana: "てっしゅう", rendered: "Тешю" }
+    - { kana: "どうじんざっし", rendered: "доджін-дзаші" }
 
 moraic_n:
   rule: "ん before labials (p, b) renders as 'м', and as 'н' elsewhere (including before m)"

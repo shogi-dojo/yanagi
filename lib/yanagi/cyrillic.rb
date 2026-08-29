@@ -224,27 +224,17 @@ module Yanagi
       )
     end
 
+    # Sokuon doubles only before the plosives «п» and «к», which Ukrainian
+    # carries comfortably (Іппекі, кеппекі, Ніккай, Хоккекьо). Before the
+    # sibilants and affricates it is not rendered: шш, чч and ддж read as
+    # foreign, so шічяку, Тешю, доджін-дзаші.
+    GEMINATING_CONSONANTS = %w[п к].freeze
+
     def self.geminate_consonant(next_rendered_text)
       return "" if next_rendered_text.nil? || next_rendered_text.empty?
 
-      # Digraphs
-      if next_rendered_text.start_with?("дж")
-        "д" # д + джі -> дджі (e.g. момідджі)
-      elsif next_rendered_text.start_with?("дз")
-        "д" # д + дза -> ддза
-      elsif next_rendered_text.start_with?("ч")
-        "ч" # ч + чі -> ччі, ч + чя -> ччя (e.g. шіччаку)
-      elsif next_rendered_text.start_with?("ш")
-        "ш" # ш + шю -> шшю, ш + ші -> шші (e.g. Тешшю)
-      else
-        first_char = next_rendered_text[0]
-        # Standard consonants: к, п, т, с, ґ, б, ф, х, м, н, р, в, д, ц
-        if %w[к п т с ґ б ф х м н р в д ц з г].include?(first_char)
-          first_char
-        else
-          ""
-        end
-      end
+      first_char = next_rendered_text[0]
+      GEMINATING_CONSONANTS.include?(first_char) ? first_char : ""
     end
 
     def self.starts_with_labial?(text)
