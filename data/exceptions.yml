@@ -1,0 +1,91 @@
+# Exceptions table for underivable pairs or documented defects
+# Status:
+#   - accepted: valid exception to regular rules
+#   - pending: data defect/violation to be corrected
+#   - wontfix: intentional divergence
+---
+# 8 Double 'оо' long vowel defects in meijin glossary
+- term: "мьоошю"
+  kanji: "妙手"
+  expected: "мьоошю"
+  canonical: "мьошю"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: мьоошю -> мьошю"
+
+- term: "ноохінкетцу"
+  kanji: "脳貧血"
+  expected: "ноохінкетцу"
+  canonical: "нохінкетцу"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: ноохінкетцу -> нохінкетцу"
+
+- term: "чьоосен-шьоґі"
+  kanji: "朝鮮将棋"
+  expected: "чьоосен-шьоґі"
+  canonical: "чьосен-шьоґі"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: чьоосен-шьоґі -> чьосен-шьоґі"
+
+- term: "Шіґа-кооґен"
+  kanji: "志賀高原"
+  expected: "Шіґа-кооґен"
+  canonical: "Шіґа-коґен"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: Шіґа-кооґен -> Шіґа-коґен"
+
+- term: "Канкоо коорьокусен"
+  kanji: "漢口攻略戦"
+  expected: "Канкоо коорьокусен"
+  canonical: "Канко корьокусен"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: Канкоо коорьокусен -> Канко корьокусен"
+
+- term: "тооріма"
+  kanji: "通り魔"
+  expected: "тооріма"
+  canonical: "торіма"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: тооріма -> торіма"
+
+- term: "коокооя"
+  kanji: "好々爺"
+  expected: "коокооя"
+  canonical: "кокоя"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: коокооя -> кокоя"
+
+- term: "йооні"
+  kanji: "ように"
+  expected: "йооні"
+  canonical: "йоні"
+  status: "pending"
+  reason: "Long vowel double-o violation in glossary: йооні -> йоні"
+
+# Minor digraph/yōon defects in meijin glossary
+- term: "шосей-бея"
+  kanji: "書生部屋"
+  expected: "шосей-бея"
+  canonical: "шьосей-бея"
+  status: "pending"
+  reason: "Forbidden шо in glossary: шосей-бея -> шьосей-бея"
+
+- term: "ґоджуппо хякупо"
+  kanji: "五十歩百歩"
+  expected: "ґоджуппо хякупо"
+  canonical: "ґоджюппо хякупо"
+  status: "pending"
+  reason: "Forbidden джу in glossary: ґоджуппо -> ґоджюппо"
+
+- term: "шіччаку"
+  kanji: "失着"
+  expected: "шіччаку"
+  canonical: "шіччяку"
+  status: "pending"
+  reason: "Forbidden ча in glossary: шіччаку -> шіччяку"
+
+- term: "фукаку-но шіччаку"
+  kanji: "不覚の失着"
+  expected: "фукаку-но шіччаку"
+  canonical: "фукаку-но шіччяку"
+  status: "pending"
+  reason: "Forbidden ча in glossary: фукаку-но шіччаку -> фукаку-но шіччяку"

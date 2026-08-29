@@ -1,0 +1,55 @@
+# Combinatorial and contextual transliteration rules
+---
+sokuon:
+  rule: "っ (sokuon) geminates the following rendered consonant, including digraphs"
+  examples:
+    - { kana: "もみっじ", rendered: "момідджі" }
+    - { kana: "ちっちゃく", rendered: "чіччаку" }
+    - { kana: "てっしゅう", rendered: "тешшю" }
+    - { kana: "いっぺき", rendered: "іппекі" }
+    - { kana: "ほっけきょう", rendered: "хоккекьо" }
+    - { kana: "けっぺき", rendered: "кеппекі" }
+
+moraic_n:
+  rule: "ん before labials (p, b) renders as 'м', and as 'н' elsewhere (including before m)"
+  labials: ["п", "б"]
+  default: "н"
+  examples:
+    - { kana: "もんぷく", rendered: "момпуку" }
+    - { kana: "さんぼう", rendered: "самбо" }
+    - { kana: "しんぶん", rendered: "шімбун" }
+    - { kana: "さんまいきょう", rendered: "санмайкьо" }
+    - { kana: "らんま", rendered: "ранма" }
+    - { kana: "しんしゅう", rendered: "шіншю" }
+
+i_after_vowel:
+  rule: "い (i) after any vowel within a Japanese stem renders as 'і', never 'ї'"
+  target: "і"
+  forbidden: "ї"
+  examples:
+    - { kana: "かるいざわ", rendered: "каруідзава" }
+    - { kana: "ごい", rendered: "ґоі" }
+    - { kana: "きいん", rendered: "кіін" }
+    - { kana: "ぬいもん", rendered: "нуімон" }
+    - { kana: "おてあい", rendered: "отеай" }
+
+apostrophe_i:
+  rule: "After apostrophe in Japanese names/words, write 'і', not 'ї'"
+  target: "і"
+  forbidden: "ї"
+  examples:
+    - { romaji: "Jun'ichi", rendered: "Джюн'ічі" }
+    - { romaji: "Kan'ichi", rendered: "Кан'ічі" }
+
+long_vowels:
+  rule: "Never double 'о'; double 'і' where morae genuinely collide; collapse long vowels always"
+  collapse: true
+  preserve_adjacent_i: true
+  examples:
+    - { kana: "おおさか", rendered: "осака" }
+    - { kana: "おおたけ", rendered: "отаке" }
+    - { kana: "おおしま", rendered: "ошіма" }
+    - { kana: "しゅうさい", rendered: "шюсай" }
+    - { kana: "きいん", rendered: "кіін" }
+    - { kana: "いいだ", rendered: "ііда" }
+    - { kana: "りいち", rendered: "ріічі" }
