@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = "yanagi"
   spec.version       = Yanagi::VERSION
   spec.authors       = ["shogi-dojo"]
-  spec.email         = ["dev@shogi-dojo.org"]
+  spec.email         = ["play@shogi-dojo.com"]
 
   spec.summary       = "Deterministic Japanese to Ukrainian transliteration engine"
   spec.description   = "Zero-dependency Japanese to Ukrainian transliteration and policy enforcement gem."
@@ -15,11 +15,12 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/shogi-dojo/yanagi"
+  spec.metadata["source_code_uri"] = "https://github.com/shogi-dojo/yanagi/tree/main"
+  spec.metadata["bug_tracker_uri"] = "https://github.com/shogi-dojo/yanagi/issues"
   spec.metadata["changelog_uri"] = "https://github.com/shogi-dojo/yanagi/blob/main/CHANGELOG.md"
 
   spec.files = Dir.chdir(__dir__) do
-    Dir["{lib,data,exe}/**/*", "LICENSE*", "README*", "yanagi.gemspec"]
+    Dir["{lib,data,exe}/**/*", "LICENSE*", "README*", "CHANGELOG*", "yanagi.gemspec"]
   end
   spec.bindir        = "exe"
   spec.executables   = ["yanagi"]
