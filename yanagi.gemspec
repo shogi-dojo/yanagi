@@ -15,7 +15,8 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = ">= 3.0.0"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "https://github.com/shogi-dojo/yanagi"
+  spec.metadata["changelog_uri"] = "https://github.com/shogi-dojo/yanagi/blob/main/CHANGELOG.md"
 
   spec.files = Dir.chdir(__dir__) do
     Dir["{lib,data,exe}/**/*", "LICENSE*", "README*", "yanagi.gemspec"]
