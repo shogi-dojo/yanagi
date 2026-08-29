@@ -8,6 +8,9 @@ require_relative "../yanagi"
 module Yanagi
   class CLI
     def self.start(args = ARGV)
+      # Output is Ukrainian/Japanese text; emit UTF-8 regardless of the caller's locale.
+      $stdout.set_encoding(Encoding::UTF_8)
+      $stderr.set_encoding(Encoding::UTF_8)
       new(args).run
     end
 

@@ -40,6 +40,15 @@ class AuditTest < Minitest::Test
     refute_empty findings_tier3.select { |f| f.tier == 3 }
   end
 
+  # Regression: Chinese-origin glossary terms (e.g. 呂祖全書 «Люйцзу цюаньшу»)
+  # are transliterated by Chinese conventions, so Japanese mora rules such as
+  # шу -> шю must never fire on them.
+  def test_tier1_skips_non_japanese_origin_terms
+    findings = Yanagi::Audit.scan_text("Даоське зібрання «Люйцзу цюаньшу» згадане тут.")
+    tier1 = findings.select { |f| f.tier == 1 }
+    assert_empty tier1, "Chinese-origin term must not be rewritten by Japanese rules"
+  end
+
   def test_audit_apply
     Tempfile.create(["sample", ".txt"]) do |sample_f|
       sample_f.write("Великий мейдзін прибув до Токіо.")
@@ -55,7 +64,7 @@ class AuditTest < Minitest::Test
         count = Yanagi::Audit.apply(findings_f.path)
         assert_equal 1, count
 
-        updated_text = File.read(sample_f.path)
+        updated_text = File.read(sample_f.path, encoding: "UTF-8")
         assert_equal "Великий мейджін прибув до Токіо.", updated_text
       end
     end

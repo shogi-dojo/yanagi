@@ -187,7 +187,7 @@ module Yanagi
           end
         end
 
-        File.write(file_path, content)
+        File.write(file_path, content, encoding: "UTF-8")
       end
 
       applied_count
@@ -209,7 +209,9 @@ module Yanagi
           candidate = clean_tok.gsub(forb, canonical_cyr)
           lex_match = Lexicon.find_by_stem(candidate)
 
-          next if lex_match && %w[太湖 書経 神仙通鑑 呂祖全書].include?(lex_match[:key])
+          # Japanese mora rules apply only to Japanese-origin terms. Chinese works
+          # and place names in the glossary carry their own transliteration.
+          next if lex_match && lex_match[:entry] && lex_match[:entry][:origin].to_s == "zh"
 
           if lex_match && lex_match[:stem].length >= Lexicon::MIN_STEM_LENGTH
             canonical_word = if raw_tok == raw_tok.capitalize

@@ -9,7 +9,10 @@ class CLITest < Minitest::Test
 
   def run_cli(*args)
     stdout, stderr, status = Open3.capture3(EXE_PATH, *args)
-    [stdout.strip, stderr.strip, status]
+    # capture3 returns binary strings; the CLI emits UTF-8.
+    [stdout.dup.force_encoding(Encoding::UTF_8).strip,
+     stderr.dup.force_encoding(Encoding::UTF_8).strip,
+     status]
   end
 
   def test_cli_version

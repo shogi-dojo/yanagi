@@ -19,6 +19,20 @@ module Yanagi
       Rules.lexicon || {}
     end
 
+    # Terms of non-Japanese origin (Chinese works, place names) are transliterated
+    # by their own language's conventions, so Japanese mora rules must not apply.
+    # Detected from the glossary note column, which states the provenance.
+    NON_JP_NOTE_MARKERS = [
+      "Китай", "китайськ", "конфуціанськ", "Даоськ", "даоськ", "Янцзи"
+    ].freeze
+
+    def self.detect_origin(note)
+      text = note.to_s
+      return "zh" if NON_JP_NOTE_MARKERS.any? { |m| text.include?(m) }
+
+      "ja"
+    end
+
     def self.build_from_glossary(glossary_path, out_path: nil)
       content = File.read(glossary_path, encoding: "UTF-8")
       lexicon = {}
@@ -53,7 +67,8 @@ module Yanagi
           "reading" => reading,
           "cyrillic" => cyr,
           "ukrainian" => col1,
-          "note" => col2
+          "note" => col2,
+          "origin" => detect_origin(col2)
         }
       end
 
