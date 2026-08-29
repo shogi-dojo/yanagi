@@ -72,7 +72,7 @@ module Yanagi
         }
       end
 
-      out_file = out_path || File.join(Rules.data_dir, "lexicon.yml")
+      out_file = out_path || Rules.path_for("lexicon.yml")
       File.write(out_file, YAML.dump(lexicon))
       reload!
       Rules.reload!
@@ -121,7 +121,7 @@ module Yanagi
         raise Error, "Cannot merge proposals:\n- #{errors.join("\n- ")}"
       end
 
-      out_file = out_path || File.join(Rules.data_dir, "lexicon.yml")
+      out_file = out_path || Rules.path_for("lexicon.yml")
       File.write(out_file, YAML.dump(new_lexicon))
       reload!
       Rules.reload!

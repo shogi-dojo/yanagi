@@ -20,7 +20,10 @@ Gem::Specification.new do |spec|
   spec.metadata["changelog_uri"] = "https://github.com/shogi-dojo/yanagi/blob/main/CHANGELOG.md"
 
   spec.files = Dir.chdir(__dir__) do
-    Dir["{lib,data,exe}/**/*", "LICENSE*", "README*", "CHANGELOG*", "yanagi.gemspec"]
+    # Corpus-derived data (lexicon, native-Ukrainian allowlist) is generated
+    # from a specific translation project and is not distributed.
+    Dir["{lib,data,exe}/**/*", "LICENSE*", "README*", "CHANGELOG*", "yanagi.gemspec"] -
+      Dir["data/{lexicon,native_ua_allowlist}.yml"]
   end
   spec.bindir        = "exe"
   spec.executables   = ["yanagi"]

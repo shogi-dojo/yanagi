@@ -8,12 +8,29 @@ module Yanagi
 
     @mutex = Mutex.new
 
+    # Policy rules ship with the gem. Corpus-derived data (the lexicon and the
+    # native-Ukrainian allowlist) is generated from a specific translation
+    # project and is NOT distributed: point YANAGI_DATA_DIR at a directory
+    # holding those files, or build them with `yanagi lexicon build`.
+    CORPUS_FILES = %w[lexicon.yml native_ua_allowlist.yml].freeze
+
     def self.data_dir
       DATA_DIR
     end
 
+    # Where corpus-derived files are read from. Defaults to the gem's data
+    # directory so a local checkout keeps working without configuration.
+    def self.corpus_dir
+      ENV.fetch("YANAGI_DATA_DIR", DATA_DIR)
+    end
+
+    def self.path_for(filename)
+      dir = CORPUS_FILES.include?(filename) ? corpus_dir : DATA_DIR
+      File.join(dir, filename)
+    end
+
     def self.load_yaml(filename)
-      path = File.join(DATA_DIR, filename)
+      path = path_for(filename)
       return {}.freeze unless File.exist?(path)
 
       data = YAML.safe_load_file(path, permitted_classes: [Symbol, Date], symbolize_names: true) || {}

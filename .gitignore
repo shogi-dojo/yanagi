@@ -46,3 +46,10 @@ build-iPhoneSimulator/
 *.swo
 .vscode/
 .idea/
+
+# Corpus-derived data. Generated from a specific translation project
+# (glossary + translated prose); not policy, not distributed, not tracked.
+# Rebuild with `yanagi lexicon build` / Audit.build_allowlist_from_corpus,
+# or point YANAGI_DATA_DIR at a directory holding them.
+/data/lexicon.yml
+/data/native_ua_allowlist.yml

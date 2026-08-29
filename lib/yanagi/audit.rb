@@ -287,7 +287,7 @@ module Yanagi
         end
       end
 
-      out_file = out_path || File.join(Rules.data_dir, "native_ua_allowlist.yml")
+      out_file = out_path || Rules.path_for("native_ua_allowlist.yml")
       File.write(out_file, YAML.dump(allow.to_a.sort))
       reload_allowlist!
       Rules.reload!

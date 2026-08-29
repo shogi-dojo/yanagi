@@ -13,6 +13,28 @@ Deterministic Japanese → Ukrainian transliteration and policy enforcement gem.
   - **Tier 3**: Polivanov markers check (off by default).
 - **Policy Synchronization (`DocSync`)**: Asserts agreement between markdown policy documents (`shared/transliteration.md`) and executable YAML rules.
 
+## Corpus data
+
+The gem ships the **policy rules** only: the mora table, combinatorial rules,
+exonyms and the exceptions table.
+
+Mode B additionally needs two files generated from a specific translation
+project — a lexicon of known Japanese terms and an allowlist of native
+Ukrainian vocabulary. These are **not distributed**, because they are one
+project's editorial research rather than transliteration policy.
+
+Mode A (`cyrillic`, `romaji`) needs neither and works out of the box. Without
+them Mode B simply reports nothing, since it only ever rewrites tokens anchored
+to a known lexical item.
+
+To use Mode B, generate the files and point the gem at them:
+
+```bash
+export YANAGI_DATA_DIR=/path/to/your/data
+yanagi lexicon build --glossary /path/to/glossary.org
+```
+
+
 ## Installation
 
 Add this line to your application's Gemfile:
