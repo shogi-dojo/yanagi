@@ -1,0 +1,15 @@
+# Exceptions table for underivable pairs and documented defects.
+#
+# status:
+#   accepted - a genuine, permanent exception to the regular rules
+#   pending  - a data defect awaiting correction; FAILS `yanagi verify-gold`
+#   wontfix  - an intentional divergence, deliberately not corrected
+#
+# A `pending` entry is a build failure by design, so unresolved defects stay
+# visible instead of silently accumulating. Correct the source data, or
+# reclassify the entry with a written reason.
+#
+# The 12 original entries (8 long-vowel `оо` violations plus 4 yōon/digraph
+# defects) were corrected in books/meijin/glossary.org rather than excepted.
+---
+[]
