@@ -1,0 +1,790 @@
+# Mora mapping: kana -> {romaji, cyrillic, onset, nucleus, forbidden}
+---
+# Vowels
+あ:
+  romaji: "a"
+  cyrillic: "а"
+  onset: ""
+  nucleus: "a"
+い:
+  romaji: "i"
+  cyrillic: "і"
+  onset: ""
+  nucleus: "i"
+う:
+  romaji: "u"
+  cyrillic: "у"
+  onset: ""
+  nucleus: "u"
+え:
+  romaji: "e"
+  cyrillic: "е"
+  onset: ""
+  nucleus: "e"
+お:
+  romaji: "o"
+  cyrillic: "о"
+  onset: ""
+  nucleus: "o"
+
+# K-row
+か:
+  romaji: "ka"
+  cyrillic: "ка"
+  onset: "k"
+  nucleus: "a"
+き:
+  romaji: "ki"
+  cyrillic: "кі"
+  onset: "k"
+  nucleus: "i"
+く:
+  romaji: "ku"
+  cyrillic: "ку"
+  onset: "k"
+  nucleus: "u"
+け:
+  romaji: "ke"
+  cyrillic: "ке"
+  onset: "k"
+  nucleus: "e"
+こ:
+  romaji: "ko"
+  cyrillic: "ко"
+  onset: "k"
+  nucleus: "o"
+
+# S-row
+さ:
+  romaji: "sa"
+  cyrillic: "са"
+  onset: "s"
+  nucleus: "a"
+し:
+  romaji: "shi"
+  cyrillic: "ші"
+  onset: "sh"
+  nucleus: "i"
+  forbidden:
+    - "сі"
+す:
+  romaji: "su"
+  cyrillic: "су"
+  onset: "s"
+  nucleus: "u"
+せ:
+  romaji: "se"
+  cyrillic: "се"
+  onset: "s"
+  nucleus: "e"
+そ:
+  romaji: "so"
+  cyrillic: "со"
+  onset: "s"
+  nucleus: "o"
+
+# T-row
+た:
+  romaji: "ta"
+  cyrillic: "та"
+  onset: "t"
+  nucleus: "a"
+ち:
+  romaji: "chi"
+  cyrillic: "чі"
+  onset: "ch"
+  nucleus: "i"
+  forbidden:
+    - "ті"
+つ:
+  romaji: "tsu"
+  cyrillic: "цу"
+  onset: "ts"
+  nucleus: "u"
+  forbidden:
+    - "тсу"
+て:
+  romaji: "te"
+  cyrillic: "те"
+  onset: "t"
+  nucleus: "e"
+と:
+  romaji: "to"
+  cyrillic: "то"
+  onset: "t"
+  nucleus: "o"
+
+# N-row
+な:
+  romaji: "na"
+  cyrillic: "на"
+  onset: "n"
+  nucleus: "a"
+に:
+  romaji: "ni"
+  cyrillic: "ні"
+  onset: "n"
+  nucleus: "i"
+ぬ:
+  romaji: "nu"
+  cyrillic: "ну"
+  onset: "n"
+  nucleus: "u"
+ね:
+  romaji: "ne"
+  cyrillic: "не"
+  onset: "n"
+  nucleus: "e"
+の:
+  romaji: "no"
+  cyrillic: "но"
+  onset: "n"
+  nucleus: "o"
+
+# H-row
+は:
+  romaji: "ha"
+  cyrillic: "ха"
+  onset: "h"
+  nucleus: "a"
+ひ:
+  romaji: "hi"
+  cyrillic: "хі"
+  onset: "h"
+  nucleus: "i"
+ふ:
+  romaji: "fu"
+  cyrillic: "фу"
+  onset: "f"
+  nucleus: "u"
+  forbidden:
+    - "ху"
+へ:
+  romaji: "he"
+  cyrillic: "хе"
+  onset: "h"
+  nucleus: "e"
+ほ:
+  romaji: "ho"
+  cyrillic: "хо"
+  onset: "h"
+  nucleus: "o"
+
+# M-row
+ま:
+  romaji: "ma"
+  cyrillic: "ма"
+  onset: "m"
+  nucleus: "a"
+み:
+  romaji: "mi"
+  cyrillic: "мі"
+  onset: "m"
+  nucleus: "i"
+  nucleus: "i"
+む:
+  romaji: "mu"
+  cyrillic: "му"
+  onset: "m"
+  nucleus: "u"
+め:
+  romaji: "me"
+  cyrillic: "ме"
+  onset: "m"
+  nucleus: "e"
+も:
+  romaji: "mo"
+  cyrillic: "мо"
+  onset: "m"
+  nucleus: "o"
+
+# Y-row
+や:
+  romaji: "ya"
+  cyrillic: "я"
+  onset: "y"
+  nucleus: "a"
+ゆ:
+  romaji: "yu"
+  cyrillic: "ю"
+  onset: "y"
+  nucleus: "u"
+よ:
+  romaji: "yo"
+  cyrillic: "йо"
+  onset: "y"
+  nucleus: "o"
+
+# R-row
+ら:
+  romaji: "ra"
+  cyrillic: "ра"
+  onset: "r"
+  nucleus: "a"
+り:
+  romaji: "ri"
+  cyrillic: "рі"
+  onset: "r"
+  nucleus: "i"
+る:
+  romaji: "ru"
+  cyrillic: "ру"
+  onset: "r"
+  nucleus: "u"
+れ:
+  romaji: "re"
+  cyrillic: "ре"
+  onset: "r"
+  nucleus: "e"
+ろ:
+  romaji: "ro"
+  cyrillic: "ро"
+  onset: "r"
+  nucleus: "o"
+
+# W-row & special
+わ:
+  romaji: "wa"
+  cyrillic: "ва"
+  onset: "w"
+  nucleus: "a"
+ゐ:
+  romaji: "wi"
+  cyrillic: "ві"
+  onset: "w"
+  nucleus: "i"
+ゑ:
+  romaji: "we"
+  cyrillic: "ве"
+  onset: "w"
+  nucleus: "e"
+を:
+  romaji: "wo"
+  cyrillic: "во"
+  onset: "w"
+  nucleus: "o"
+ん:
+  romaji: "n"
+  cyrillic: "н"
+  onset: "n"
+  nucleus: "n"
+
+# G-row (voiced)
+が:
+  romaji: "ga"
+  cyrillic: "ґа"
+  onset: "g"
+  nucleus: "a"
+  forbidden:
+    - "га"
+ぎ:
+  romaji: "gi"
+  cyrillic: "ґі"
+  onset: "g"
+  nucleus: "i"
+  forbidden:
+    - "гі"
+ぐ:
+  romaji: "gu"
+  cyrillic: "ґу"
+  onset: "g"
+  nucleus: "u"
+  forbidden:
+    - "гу"
+げ:
+  romaji: "ge"
+  cyrillic: "ґе"
+  onset: "g"
+  nucleus: "e"
+  forbidden:
+    - "ге"
+ご:
+  romaji: "go"
+  cyrillic: "ґо"
+  onset: "g"
+  nucleus: "o"
+  forbidden:
+    - "го"
+
+# Z-row (voiced)
+ざ:
+  romaji: "za"
+  cyrillic: "дза"
+  onset: "z"
+  nucleus: "a"
+  forbidden:
+    - "за"
+じ:
+  romaji: "ji"
+  cyrillic: "джі"
+  onset: "j"
+  nucleus: "i"
+  forbidden:
+    - "дзі"
+    - "зі"
+ず:
+  romaji: "zu"
+  cyrillic: "дзу"
+  onset: "z"
+  nucleus: "u"
+  forbidden:
+    - "зу"
+ぜ:
+  romaji: "ze"
+  cyrillic: "дзе"
+  onset: "z"
+  nucleus: "e"
+  forbidden:
+    - "зе"
+ぞ:
+  romaji: "zo"
+  cyrillic: "дзо"
+  onset: "z"
+  nucleus: "o"
+  forbidden:
+    - "зо"
+
+# D-row (voiced)
+だ:
+  romaji: "da"
+  cyrillic: "да"
+  onset: "d"
+  nucleus: "a"
+ぢ:
+  romaji: "ji"
+  cyrillic: "джі"
+  onset: "j"
+  nucleus: "i"
+  forbidden:
+    - "дзі"
+    - "зі"
+づ:
+  romaji: "zu"
+  cyrillic: "дзу"
+  onset: "z"
+  nucleus: "u"
+  forbidden:
+    - "зу"
+で:
+  romaji: "de"
+  cyrillic: "де"
+  onset: "d"
+  nucleus: "e"
+ど:
+  romaji: "do"
+  cyrillic: "до"
+  onset: "d"
+  nucleus: "o"
+
+# B-row (voiced)
+ば:
+  romaji: "ba"
+  cyrillic: "ба"
+  onset: "b"
+  nucleus: "a"
+び:
+  romaji: "bi"
+  cyrillic: "бі"
+  onset: "b"
+  nucleus: "i"
+ぶ:
+  romaji: "bu"
+  cyrillic: "бу"
+  onset: "b"
+  nucleus: "u"
+べ:
+  romaji: "be"
+  cyrillic: "бе"
+  onset: "b"
+  nucleus: "e"
+ぼ:
+  romaji: "bo"
+  cyrillic: "бо"
+  onset: "b"
+  nucleus: "o"
+
+# P-row (semi-voiced)
+ぱ:
+  romaji: "pa"
+  cyrillic: "па"
+  onset: "p"
+  nucleus: "a"
+ぴ:
+  romaji: "pi"
+  cyrillic: "пі"
+  onset: "p"
+  nucleus: "i"
+ぷ:
+  romaji: "pu"
+  cyrillic: "пу"
+  onset: "p"
+  nucleus: "u"
+ぺ:
+  romaji: "pe"
+  cyrillic: "пе"
+  onset: "p"
+  nucleus: "e"
+ぽ:
+  romaji: "po"
+  cyrillic: "по"
+  onset: "p"
+  nucleus: "o"
+
+# Yōon (digraphs)
+きゃ:
+  romaji: "kya"
+  cyrillic: "кя"
+  onset: "ky"
+  nucleus: "ya"
+きゅ:
+  romaji: "kyu"
+  cyrillic: "кю"
+  onset: "ky"
+  nucleus: "yu"
+きょ:
+  romaji: "kyo"
+  cyrillic: "кьо"
+  onset: "ky"
+  nucleus: "yo"
+  forbidden:
+    - "кё"
+
+しゃ:
+  romaji: "sha"
+  cyrillic: "шя"
+  onset: "sh"
+  nucleus: "ya"
+  forbidden:
+    - "ся"
+    - "ша"
+しゅ:
+  romaji: "shu"
+  cyrillic: "шю"
+  onset: "sh"
+  nucleus: "yu"
+  forbidden:
+    - "сю"
+    - "шу"
+しょ:
+  romaji: "sho"
+  cyrillic: "шьо"
+  onset: "sh"
+  nucleus: "yo"
+  forbidden:
+    - "сьо"
+    - "шо"
+    - "шё"
+
+ちゃ:
+  romaji: "cha"
+  cyrillic: "чя"
+  onset: "ch"
+  nucleus: "ya"
+  forbidden:
+    - "тя"
+    - "ча"
+ちゅ:
+  romaji: "chu"
+  cyrillic: "чю"
+  onset: "ch"
+  nucleus: "yu"
+  forbidden:
+    - "тю"
+    - "чу"
+ちょ:
+  romaji: "cho"
+  cyrillic: "чьо"
+  onset: "ch"
+  nucleus: "yo"
+  forbidden:
+    - "тьо"
+    - "чо"
+    - "чё"
+
+にゃ:
+  romaji: "nya"
+  cyrillic: "ня"
+  onset: "ny"
+  nucleus: "ya"
+にゅ:
+  romaji: "nyu"
+  cyrillic: "ню"
+  onset: "ny"
+  nucleus: "yu"
+にょ:
+  romaji: "nyo"
+  cyrillic: "ньо"
+  onset: "ny"
+  nucleus: "yo"
+  forbidden:
+    - "нё"
+
+ひゃ:
+  romaji: "hya"
+  cyrillic: "хя"
+  onset: "hy"
+  nucleus: "ya"
+  nucleus: "ya"
+ひゅ:
+  romaji: "hyu"
+  cyrillic: "хю"
+  onset: "hy"
+  nucleus: "yu"
+ひょ:
+  romaji: "hyo"
+  cyrillic: "хьо"
+  onset: "hy"
+  nucleus: "yo"
+  forbidden:
+    - "хё"
+
+みゃ:
+  romaji: "mya"
+  cyrillic: "мя"
+  onset: "my"
+  nucleus: "ya"
+みゅ:
+  romaji: "myu"
+  cyrillic: "мю"
+  onset: "my"
+  nucleus: "yu"
+みょ:
+  romaji: "myo"
+  cyrillic: "мьо"
+  onset: "my"
+  nucleus: "yo"
+  forbidden:
+    - "мё"
+
+りゃ:
+  romaji: "rya"
+  cyrillic: "ря"
+  onset: "ry"
+  nucleus: "ya"
+りゅ:
+  romaji: "ryu"
+  cyrillic: "рю"
+  onset: "ry"
+  nucleus: "yu"
+りょ:
+  romaji: "ryo"
+  cyrillic: "рьо"
+  onset: "ry"
+  nucleus: "yo"
+  forbidden:
+    - "рё"
+
+ぎゃ:
+  romaji: "gya"
+  cyrillic: "ґя"
+  onset: "gy"
+  nucleus: "ya"
+  forbidden:
+    - "гя"
+ぎゅ:
+  romaji: "gyu"
+  cyrillic: "ґю"
+  onset: "gy"
+  nucleus: "yu"
+  forbidden:
+    - "гю"
+ぎょ:
+  romaji: "gyo"
+  cyrillic: "ґьо"
+  onset: "gy"
+  nucleus: "yo"
+  forbidden:
+    - "ґё"
+    - "гьо"
+    - "гё"
+
+じゃ:
+  romaji: "ja"
+  cyrillic: "джя"
+  onset: "j"
+  nucleus: "ya"
+  forbidden:
+    - "дзя"
+    - "зя"
+    - "джа"
+じゅ:
+  romaji: "ju"
+  cyrillic: "джю"
+  onset: "j"
+  nucleus: "yu"
+  forbidden:
+    - "дзю"
+    - "зю"
+    - "джу"
+じょ:
+  romaji: "jo"
+  cyrillic: "джьо"
+  onset: "j"
+  nucleus: "yo"
+  forbidden:
+    - "дзьо"
+    - "зьо"
+    - "джо"
+    - "джё"
+
+ぢゃ:
+  romaji: "ja"
+  cyrillic: "джя"
+  onset: "j"
+  nucleus: "ya"
+  forbidden:
+    - "дзя"
+    - "зя"
+    - "джа"
+ぢゅ:
+  romaji: "ju"
+  cyrillic: "джю"
+  onset: "j"
+  nucleus: "yu"
+  forbidden:
+    - "дзю"
+    - "зю"
+    - "джу"
+ぢょ:
+  romaji: "jo"
+  cyrillic: "джьо"
+  onset: "j"
+  nucleus: "yo"
+  forbidden:
+    - "дзьо"
+    - "зьо"
+    - "джо"
+    - "джё"
+
+びゃ:
+  romaji: "bya"
+  cyrillic: "бя"
+  onset: "by"
+  nucleus: "ya"
+びゅ:
+  romaji: "byu"
+  cyrillic: "бю"
+  onset: "by"
+  nucleus: "yu"
+びょ:
+  romaji: "byo"
+  cyrillic: "бьо"
+  onset: "by"
+  nucleus: "yo"
+  forbidden:
+    - "бё"
+
+ぴゃ:
+  romaji: "pya"
+  cyrillic: "пя"
+  onset: "py"
+  nucleus: "ya"
+ぴゅ:
+  romaji: "pyu"
+  cyrillic: "пю"
+  onset: "py"
+  nucleus: "yu"
+ぴょ:
+  romaji: "pyo"
+  cyrillic: "пьо"
+  onset: "py"
+  nucleus: "yo"
+  forbidden:
+    - "пё"
+
+# Additional modern loan digraphs / morae
+しぇ:
+  romaji: "she"
+  cyrillic: "ше"
+  onset: "sh"
+  nucleus: "e"
+ちぇ:
+  romaji: "che"
+  cyrillic: "че"
+  onset: "ch"
+  nucleus: "e"
+つぇ:
+  romaji: "tse"
+  cyrillic: "це"
+  onset: "ts"
+  nucleus: "e"
+ふぁ:
+  romaji: "fa"
+  cyrillic: "фа"
+  onset: "f"
+  nucleus: "a"
+ふぃ:
+  romaji: "fi"
+  cyrillic: "фі"
+  onset: "f"
+  nucleus: "i"
+ふぇ:
+  romaji: "fe"
+  cyrillic: "фе"
+  onset: "f"
+  nucleus: "e"
+ふぉ:
+  romaji: "fo"
+  cyrillic: "фо"
+  onset: "f"
+  nucleus: "o"
+うぃ:
+  romaji: "wi"
+  cyrillic: "ві"
+  onset: "w"
+  nucleus: "i"
+うぇ:
+  romaji: "we"
+  cyrillic: "ве"
+  onset: "w"
+  nucleus: "e"
+うぉ:
+  romaji: "wo"
+  cyrillic: "во"
+  onset: "w"
+  nucleus: "o"
+ゔ:
+  romaji: "vu"
+  cyrillic: "ву"
+  onset: "v"
+  nucleus: "u"
+ゔぁ:
+  romaji: "va"
+  cyrillic: "ва"
+  onset: "v"
+  nucleus: "a"
+ゔぃ:
+  romaji: "vi"
+  cyrillic: "ві"
+  onset: "v"
+  nucleus: "i"
+ゔぇ:
+  romaji: "ve"
+  cyrillic: "ве"
+  onset: "v"
+  nucleus: "e"
+ゔぉ:
+  romaji: "vo"
+  cyrillic: "во"
+  onset: "v"
+  nucleus: "o"
+てぃ:
+  romaji: "ti"
+  cyrillic: "ті"
+  onset: "t"
+  nucleus: "i"
+でぃ:
+  romaji: "di"
+  cyrillic: "ді"
+  onset: "d"
+  nucleus: "i"
+どぅ:
+  romaji: "du"
+  cyrillic: "ду"
+  onset: "d"
+  nucleus: "u"
+とぅ:
+  romaji: "tu"
+  cyrillic: "ту"
+  onset: "t"
+  nucleus: "u"
