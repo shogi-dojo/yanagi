@@ -1270,8 +1270,8 @@
   origin: ja
 失着:
   kanji: 失着
-  reading: шіччаку
-  cyrillic: шіччаку
+  reading: шіччяку
+  cyrillic: шіччяку
   ukrainian: невдалий хід / похибка
   note: Помилковий хід у партії ґо
   origin: ja
@@ -1312,8 +1312,8 @@
   origin: ja
 不覚の失着:
   kanji: 不覚の失着
-  reading: фукаку-но шіччаку
-  cyrillic: фукаку-но шіччаку
+  reading: фукаку-но шіччяку
+  cyrillic: фукаку-но шіччяку
   ukrainian: необачна похибка
   note: Помилковий хід, зроблений через недогляд
   origin: ja
@@ -1466,8 +1466,8 @@
   origin: ja
 書生部屋:
   kanji: 書生部屋
-  reading: шосей-бея
-  cyrillic: шосей-бея
+  reading: шьосей-бея
+  cyrillic: шьосей-бея
   ukrainian: кімната для учнів
   note: Кімната, де мешкали внутрішні учні в домі вчителя
   origin: ja
@@ -1543,8 +1543,8 @@
   origin: ja
 妙手:
   kanji: 妙手
-  reading: мьоошю
-  cyrillic: мьоошю
+  reading: мьошю
+  cyrillic: мьошю
   ukrainian: блискучий хід
   note: Винятково майстерний і красивий хід у ґо
   origin: ja
@@ -1558,8 +1558,8 @@
   origin: ja
 五十歩百歩:
   kanji: 五十歩百歩
-  reading: ґоджуппо хякупо
-  cyrillic: ґоджуппо хякупо
+  reading: ґоджюппо хяппо
+  cyrillic: ґоджюппо хяппо
   ukrainian: один одного вартий
   note: 'Ідіома з «Мен-цзи» («п''ятдесят кроків чи сто кроків»): обоє рябоє'
   origin: ja
@@ -1572,8 +1572,8 @@
   origin: ja
 みんみん蝉:
   kanji: みんみん蝉
-  reading: мінмін-земі
-  cyrillic: мінмін-земі
+  reading: мінмін-дземі
+  cyrillic: мінмін-дземі
   ukrainian: цикада-мінмін
   note: Співуча літня цикада Hyalessa maculaticollis
   origin: ja
@@ -1663,8 +1663,8 @@
   origin: ja
 脳貧血:
   kanji: 脳貧血
-  reading: ноохінкетцу
-  cyrillic: ноохінкетцу
+  reading: нохінкецу
+  cyrillic: нохінкецу
   ukrainian: мозкова анемія
   note: Історична назва стану із запамороченням і можливою втратою свідомості
   origin: ja
@@ -1726,8 +1726,8 @@
   origin: ja
 朝鮮将棋:
   kanji: 朝鮮将棋
-  reading: чьоосен-шьоґі
-  cyrillic: чьоосен-шьоґі
+  reading: чьосен-шьоґі
+  cyrillic: чьосен-шьоґі
   ukrainian: корейські шьоґі / чанґі
   note: Традиційні корейські шахи чанґі
   origin: ja
@@ -1754,8 +1754,8 @@
   origin: ja
 志賀高原:
   kanji: 志賀高原
-  reading: Шіґа-кооґен
-  cyrillic: Шіґа-кооґен
+  reading: Шіґа-коґен
+  cyrillic: Шіґа-коґен
   ukrainian: плато Шіґа
   note: Високогірний курортний район у префектурі Наґано
   origin: ja
@@ -1964,8 +1964,8 @@
   origin: ja
 漢口攻略戦:
   kanji: 漢口攻略戦
-  reading: Канкоо коорьокусен
-  cyrillic: Канкоо коорьокусен
+  reading: Канко корьокусен
+  cyrillic: Канко корьокусен
   ukrainian: битва за Ханькоу
   note: Наступальна операція японської армії під час битви за Ухань (1938)
   origin: ja
@@ -2091,8 +2091,8 @@
   origin: ja
 水の流れ雲のゆくように:
   kanji: 水の流れ雲のゆくように
-  reading: мідзу но наґаре, кумо но юку йооні
-  cyrillic: мідзу но наґаре, кумо но юку йооні
+  reading: мідзу но наґаре, кумо но юку йоні
+  cyrillic: мідзу но наґаре, кумо но юку йоні
   ukrainian: немов лине вода й пливуть хмари
   note: Образ природності й невимушеного плину дій
   origin: ja
@@ -2618,9 +2618,9 @@
   origin: ja
 通り魔:
   kanji: 通り魔
-  reading: тооріма
-  cyrillic: тооріма
-  ukrainian: тооріма
+  reading: торіма
+  cyrillic: торіма
+  ukrainian: торіма
   note: Злий демон / раптове затьмарення розуму
   origin: ja
 桐の火鉢:
@@ -2688,9 +2688,9 @@
   origin: ja
 好々爺:
   kanji: 好々爺
-  reading: коокооя
-  cyrillic: коокооя
-  ukrainian: коокооя
+  reading: кокоя
+  cyrillic: кокоя
+  ukrainian: кокоя
   note: Лагідний, сумирний, добродушний дідусь
   origin: ja
 竹葉:

@@ -213,6 +213,32 @@ module Yanagi
       end
     end
 
+    # Forbidden Cyrillic sequences: Polivanov leftovers and yoon/long-vowel
+    # violations. Derived from the rules data so the doc, the audit and this
+    # check cannot drift apart.
+    def gold_forbidden_patterns
+      pats = []
+      (Rules.mora_map || {}).each_value do |data|
+        canonical = data[:cyrillic].to_s
+        Array(data[:forbidden]).each do |forb|
+          f = forb.to_s
+          next if f.empty?
+
+          # A forbidden sequence is only a violation when it is not already part
+          # of the canonical rendering: «за» is wrong on its own but correct
+          # inside «дза», and «ху» is wrong except inside a longer correct form.
+          prefix = canonical.end_with?(f) ? canonical[0...-f.length] : nil
+          pats << if prefix && !prefix.empty?
+                    Regexp.new("(?<!#{Regexp.escape(prefix)})#{Regexp.escape(f)}", Regexp::IGNORECASE)
+                  else
+                    Regexp.new(Regexp.escape(f), Regexp::IGNORECASE)
+                  end
+        end
+      end
+      pats << /оо/  # long vowels are never doubled (see transliteration.md 3.3)
+      pats.uniq { |r| r.source }
+    end
+
     def cmd_verify_gold
       glossary_path = @args.first || File.expand_path("~/projects/meijin/books/meijin/glossary.org")
       unless File.exist?(glossary_path)
@@ -228,56 +254,74 @@ module Yanagi
         next if parts.empty? || parts[0].start_with?("-") || parts[0] =~ /Японське/i
 
         col0 = parts[0]
-        col1 = parts[1]
-        col2 = parts[2]
-        if col0 =~ /^(.+?)\s*\((.+?)\)$/
-          rows << { kanji: Regexp.last_match(1).strip, reading: Regexp.last_match(2).strip, ukrainian: col1, note: col2 }
-        end
+        next unless col0 =~ /^(.+?)\s*\((.+?)\)$/
+
+        rows << {
+          kanji: Regexp.last_match(1).strip,
+          reading: Regexp.last_match(2).strip,
+          ukrainian: parts[1],
+          note: parts[2]
+        }
       end
 
       puts "Verifying #{rows.length} gold glossary terms against Yanagi rules..."
-      exceptions = Rules.exceptions || []
-      pending_terms = exceptions.select { |e| e[:status] == "pending" }.map { |e| e[:term] }
 
+      exceptions = Rules.exceptions || []
+      pending = exceptions.select { |e| e[:status].to_s == "pending" }
+      accepted_terms = exceptions.select { |e| e[:status].to_s == "accepted" }.map { |e| e[:term].to_s }
+
+      patterns = gold_forbidden_patterns
       passed = 0
-      pending_count = 0
       failures = []
 
       rows.each do |row|
         reading = row[:reading]
-        kanji = row[:kanji]
 
-        if pending_terms.any? { |t| reading.include?(t) }
-          pending_count += 1
+        # Non-Japanese entries carry their own language's transliteration.
+        entry = Rules.lexicon[row[:kanji].to_sym] || Rules.lexicon[row[:kanji]]
+        if entry && entry[:origin].to_s == "zh"
           passed += 1
           next
         end
 
-        # Check against forbidden patterns
-        has_forbidden = GoldGlossaryTest::FORBIDDEN_PATTERNS.any? { |pat| reading =~ pat } if defined?(GoldGlossaryTest::FORBIDDEN_PATTERNS)
-        if has_forbidden && !%w[太湖 書経 神仙通鑑 呂祖全書].include?(kanji)
-          failures << { kanji: kanji, reading: reading, reason: "Forbidden digraph" }
+        if accepted_terms.any? { |t| reading.include?(t) }
+          passed += 1
+          next
+        end
+
+        hit = patterns.find { |pat| reading =~ pat }
+        if hit
+          failures << { kanji: row[:kanji], reading: reading, reason: "Forbidden sequence #{hit.source}" }
         else
           passed += 1
         end
       end
 
-      pass_rate = (passed.to_f / rows.length * 100).round(1)
+      pass_rate = rows.empty? ? 100.0 : (passed.to_f / rows.length * 100).round(1)
       puts "Gold Verification Summary:"
       puts "-------------------------"
       puts "Total Terms:    #{rows.length}"
       puts "Passed:         #{passed} (#{pass_rate}%)"
-      puts "Pending Defect: #{pending_count}"
       puts "Failures:       #{failures.length}"
+      puts "Pending defect: #{pending.length}"
 
-      if failures.empty?
+      unless failures.empty?
+        warn "\nFailures:"
+        failures.each { |f| warn "  - #{f[:kanji]} (#{f[:reading]}): #{f[:reason]}" }
+      end
+
+      # A pending exception is an uncorrected data defect: fail so it stays visible.
+      unless pending.empty?
+        warn "\nPending defects in data/exceptions.yml (correct the source data or reclassify):"
+        pending.each { |e| warn "  - #{e[:term]} (#{e[:kanji]}): #{e[:reason]}" }
+      end
+
+      if failures.empty? && pending.empty?
         puts "All gold pairs verified successfully!"
         exit 0
-      else
-        warn "Failures:"
-        failures.each { |f| warn "  - #{f[:kanji]} (#{f[:reading]}): #{f[:reason]}" }
-        exit 1
       end
+
+      exit 1
     end
 
     def print_help

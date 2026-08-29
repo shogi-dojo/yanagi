@@ -77,9 +77,12 @@ class CyrillicTest < Minitest::Test
     assert_equal "мейджін", Yanagi.from_romaji("meijin")
   end
 
-  def test_exceptions_table
-    res = Yanagi.cyrillic("мьоошю", kanji: "妙手")
-    assert_equal :exception_table, res.source
-    assert_equal "мьошю", res.text
+  # 妙手 (myoushu) was one of the long-vowel defects: the glossary read «мьоошю»
+  # against the no-doubling rule. It is corrected at source, so the engine now
+  # derives the right form directly instead of routing through an exception.
+  def test_long_vowel_not_doubled
+    assert_equal "мьошю", Yanagi.cyrillic("みょうしゅ").text
+    assert_equal "кокоя", Yanagi.cyrillic("こうこうや").text
+    assert_equal "торіма", Yanagi.cyrillic("とおりま").text
   end
 end

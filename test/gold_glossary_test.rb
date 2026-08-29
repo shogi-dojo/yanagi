@@ -42,10 +42,14 @@ class GoldGlossaryTest < Minitest::Test
     assert exceptions.length <= 25, "Exceptions list exceeded budget cap: #{exceptions.length} > 25"
   end
 
-  def test_pending_exceptions_status
-    # Verify pending exceptions are tracked
+  # A pending entry is an uncorrected data defect and fails `yanagi verify-gold`
+  # by design. The original 12 were fixed in the glossary rather than excepted,
+  # so the table should stay empty of them.
+  def test_no_pending_exceptions_remain
     pending = Yanagi::Rules.exceptions.select { |e| e[:status] == "pending" }
-    assert pending.length >= 8, "Expected at least 8 pending exceptions, found #{pending.length}"
+    assert_empty pending,
+                 "Pending defects must be corrected in the source data, not left in exceptions.yml: " \
+                 "#{pending.map { |e| e[:term] }.join(', ')}"
   end
 
   def test_glossary_inverse_well_formedness

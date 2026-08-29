@@ -73,7 +73,7 @@ module Yanagi
       lines = text.lines
 
       lines.each_with_index do |line_text, line_idx|
-        line_text.scan(/(?<![\w\p{Cyrillic}])([\p{Cyrillic}'\`\x27-]+)(?![\w\p{Cyrillic}])/) do
+        line_text.scan(/(?<![\w\p{Cyrillic}])([\p{Cyrillic}'’\`-]+)(?![\w\p{Cyrillic}])/) do
           match_data = Regexp.last_match
           raw_tok = match_data[1]
           col = match_data.begin(0) + 1
@@ -273,7 +273,7 @@ module Yanagi
 
         files.each do |f|
           content = File.read(f, encoding: "UTF-8")
-          content.scan(/[\p{Cyrillic}'\`\x27-]+/) do |tok|
+          content.scan(/[\p{Cyrillic}'’\`-]+/) do |tok|
             clean = tok.downcase.gsub(/^[-'\`"]+|[-'\`"]+$/, "")
             next if clean.length < 2
 
