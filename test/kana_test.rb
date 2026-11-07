@@ -80,4 +80,9 @@ class KanaTest < Minitest::Test
       assert_equal 1, group.map { |r| Yanagi.kana(r) }.uniq.size, group.inspect
     end
   end
+
+  def test_romaji_to_hiragana_delegates
+    assert_equal "たべる", Yanagi::Cyrillic.romaji_to_hiragana("taberu")
+    assert_equal "しんぶん", Yanagi::Cyrillic.romaji_to_hiragana("Shimbun")
+  end
 end
