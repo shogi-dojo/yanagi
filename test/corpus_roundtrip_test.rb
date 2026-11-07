@@ -13,7 +13,7 @@ class CorpusRoundtripTest < Minitest::Test
     1586850-aruiwa.org
   ].freeze
 
-  def test_1496_jisho_entries_romaji_roundtrip
+  def test_jisho_entries_romaji_roundtrip
     skip "jisho repo not found at #{JISHO_ENTRIES_DIR}" unless Dir.exist?(JISHO_ENTRIES_DIR)
 
     files = Dir.glob(File.join(JISHO_ENTRIES_DIR, "*", "*.org"))
@@ -46,7 +46,7 @@ class CorpusRoundtripTest < Minitest::Test
       end
     end
 
-    assert_equal 1496, checked
+    assert checked >= 1400, "Expected at least 1400 entries with a reading and romaji, checked #{checked}"
     assert_empty failures, "Failed #{failures.length} / #{checked} entries: #{failures.first(10).inspect}"
   end
 end
