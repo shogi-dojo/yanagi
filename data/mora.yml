@@ -708,6 +708,16 @@
   cyrillic: "це"
   onset: "ts"
   nucleus: "e"
+じぇ:
+  romaji: "je"
+  cyrillic: "дже"
+  onset: "j"
+  nucleus: "e"
+いぇ:
+  romaji: "ye"
+  cyrillic: "є"
+  onset: "y"
+  nucleus: "e"
 ふぁ:
   romaji: "fa"
   cyrillic: "фа"

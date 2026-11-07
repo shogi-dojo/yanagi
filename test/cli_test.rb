@@ -18,7 +18,7 @@ class CLITest < Minitest::Test
   def test_cli_version
     out, _, status = run_cli("version")
     assert status.success?
-    assert_includes out, "yanagi 0.1.0"
+    assert_includes out, "yanagi #{Yanagi::VERSION}"
   end
 
   def test_cli_romaji

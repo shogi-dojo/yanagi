@@ -3,6 +3,7 @@
 require_relative "normalize"
 require_relative "rules"
 require_relative "mora"
+require_relative "kana"
 
 module Yanagi
   Result = Struct.new(:text, :source, :confidence, :notes, keyword_init: true) do
@@ -52,7 +53,7 @@ module Yanagi
     E_COLUMN = %w[
       え け せ て ね へ め れ ゑ
       げ ぜ で べ ぺ
-      しぇ ちぇ つぇ ふぇ うぇ ゔぇ
+      しぇ ちぇ つぇ じぇ いぇ ふぇ うぇ ゔぇ
     ].freeze
 
     I_COLUMN = %w[
@@ -243,60 +244,12 @@ module Yanagi
       text.start_with?("п", "б")
     end
 
-    # Simple romaji to hiragana conversion for Mode A romaji input
+    # Romaji to hiragana for Mode A romaji input. Delegates to Yanagi::Kana, which
+    # accepts Hepburn, Kunrei and wapuro spellings. Unlike Yanagi.kana it never
+    # returns nil: input Kana cannot convert is returned lowercased and
+    # unchanged, as before.
     def self.romaji_to_hiragana(str)
-      norm = str.downcase.gsub("'", "'")
-      mora_map = Rules.mora_map
-
-      # Build inverted map from romaji -> hiragana kana
-      @romaji_to_hira_table ||= begin
-        table = {}
-        mora_map.each do |kana_sym, data|
-          rom = data[:romaji]&.to_s
-          table[rom] = kana_sym.to_s if rom
-        end
-        # Sort by romaji length descending to match longest substrings first
-        table.sort_by { |k, _v| -k.length }.to_h
-      end
-
-      res = []
-      i = 0
-      len = norm.length
-      while i < len
-        matched = false
-
-        # Check sokuon in romaji (e.g. kk, pp, tt, ss, tch, ssh, etc.)
-        c = norm[i]
-        c_next = norm[i + 1]
-        c3 = norm[i, 3]
-
-        if c3 == "tch"
-          res << "っ"
-          i += 1
-          next
-        elsif c == c_next && c =~ /[bcdfghjklmpqrstvwxyz]/ && c != "n"
-          res << "っ"
-          i += 1
-          next
-        end
-
-        # Match table
-        @romaji_to_hira_table.each do |rom, kana|
-          if norm[i..].start_with?(rom)
-            res << kana
-            i += rom.length
-            matched = true
-            break
-          end
-        end
-
-        unless matched
-          res << norm[i]
-          i += 1
-        end
-      end
-
-      res.join
+      Kana.convert(str) || str.to_s.downcase
     end
   end
 
