@@ -76,6 +76,25 @@ Yanagi.from_romaji("shuusai")
 # => "шюсай"
 ```
 
+### Romaji to kana (search input)
+
+```ruby
+Yanagi.kana("Tōkyō")                       # => "とうきょう"
+Yanagi.kana("kon'nichiha")                 # => "こんにちは"
+Yanagi.kana("shimbun")                     # => "しんぶん"
+Yanagi.kana("kitte")                       # => "きって"
+Yanagi.kana("ra-men", script: :katakana)   # => "ラーメン"
+Yanagi.kana("taberu日本")                  # => nil (not romaji)
+```
+
+Hepburn, Kunrei and wapuro spellings are all accepted (`shi`/`si`, `chi`/`ti`,
+`tsu`/`tu`, `fu`/`hu`, `ji`/`zi`, `sha`/`sya`, `ja`/`zya`/`jya`). Case and
+surrounding whitespace are ignored. `nn` before a vowel is read as ん plus the
+n-row kana (`konnichi` → こんにち); type `nnn` or `n'` to force ん + vowel.
+`di`/`du` give ぢ/づ, so callers matching a dictionary may want to fold them to
+じ/ず. In katakana, `ō`, `â`, doubled vowels and `-` give ー, while `ou` stays
+オウ. Anything that is not plain romaji returns `nil`.
+
 ### Mode B: Prose Audit & Correction
 
 ```ruby
