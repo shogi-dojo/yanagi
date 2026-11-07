@@ -5,12 +5,14 @@ require "test_helper"
 class CorpusRoundtripTest < Minitest::Test
   JISHO_ENTRIES_DIR = File.expand_path("~/projects/jisho/entries")
 
-  # 2 known entries in jisho where ROMAJI header deviates from kana reading:
+  # Known entries in jisho where the ROMAJI header deviates from the kana reading:
   # - 1204960-kakkou.org: reading is 'かくこう' (kakukou) but header is 'kakkou'
   # - 1586850-aruiwa.org: reading is 'あるいは' (aruiha) but header is 'aruiwa'
+  # - 1077960-channeru.org: reading is 'チャネル' (chaneru) but header follows 'channel'
   KNOWN_JISHO_DISCREPANCIES = %w[
     1204960-kakkou.org
     1586850-aruiwa.org
+    1077960-channeru.org
   ].freeze
 
   def test_jisho_entries_romaji_roundtrip

@@ -23,6 +23,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   romaji input now understands Kunrei and wapuro spellings too. Input that
   cannot convert is still returned lowercased.
 
+### Fixed
+
+- ジェ / じぇ and イェ / いぇ romanize as `je` and `ye` (they came out as `jiぇ`
+  and `iぇ`) and transliterate as «дже» and «є».
+
 ## [0.1.0] — 2026-08-29
 
 First release. Yanagi (柳) turns the Japanese→Ukrainian transliteration policy

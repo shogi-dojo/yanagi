@@ -53,7 +53,7 @@ module Yanagi
     E_COLUMN = %w[
       え け せ て ね へ め れ ゑ
       げ ぜ で べ ぺ
-      しぇ ちぇ つぇ ふぇ うぇ ゔぇ
+      しぇ ちぇ つぇ じぇ いぇ ふぇ うぇ ゔぇ
     ].freeze
 
     I_COLUMN = %w[
