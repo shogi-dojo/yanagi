@@ -14,6 +14,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   locative of «Суса» (すさ). Such a token now counts as correct only when no heavier anchor spells
   it otherwise, so すし still makes it «суші». A match that needs a case ending weighs 0.9 of a
   bare one.
+- **Key: い after a vowel and ん before a labial.** «суйка», «сусухараі», «каваї» now key like
+  yanagi's «суіка», «сусухарай», «кавайі», and «еммей», «шінбун» like «енмей», «шімбун»: gaps
+  found by checking Warodai's 45k Polivanov readings that differ from yanagi's.
 
 ## [0.3.0] — 2026-11-08
 
