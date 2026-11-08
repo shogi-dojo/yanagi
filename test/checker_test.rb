@@ -77,6 +77,12 @@ class CheckerTest < Minitest::Test
     assert_empty Checker.new(anchors: Checker::MemoryAnchors.new(rows), ukrainian: words).check("вряди-годи")
   end
 
+  def test_an_exonym_outweighs_a_polivanov_reading
+    rows = [{ kana: "ろしあ", origin: "exonym", cyrillic: "Росія", weight: 5 },
+            { kana: "ろしや", origin: "jmnedict", weight: 0.5 }]
+    assert_empty Checker.new(anchors: Checker::MemoryAnchors.new(rows)).check("Росія і Росією")
+  end
+
   def test_ukrainian_words_are_left_alone
     assert_empty suggestions("Сьогодні сім разів сюди вчиться ліпити тісто, а сусіди на засіданні.")
   end

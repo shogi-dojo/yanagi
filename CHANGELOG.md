@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Key: い after a vowel and ん before a labial.** «суйка», «сусухараі», «каваї» now key like
   yanagi's «суіка», «сусухарай», «кавайі», and «еммей», «шінбун» like «енмей», «шімбун»: gaps
   found by checking Warodai's 45k Polivanov readings that differ from yanagi's.
+- **Exonyms: «Росія»** (ろしあ), so the place name is not read as a Japanese «Рошія».
 - **Checker: a hyphenated Ukrainian word is left alone whole.** «вряди-годи» is in the word list,
   so its parts («годи») are no longer checked on their own.
 
