@@ -4,6 +4,7 @@ require "optparse"
 require "json"
 require "yaml"
 require_relative "../yanagi"
+require_relative "check_command"
 
 module Yanagi
   class CLI
@@ -29,6 +30,8 @@ module Yanagi
         cmd_audit
       when "apply"
         cmd_apply
+      when "check"
+        exit CheckCommand.new(@args).run
       when "doc-sync", "doc_sync"
         cmd_doc_sync
       when "lexicon"
@@ -333,6 +336,7 @@ module Yanagi
           yanagi cyrillic <kana> [--format json|human] [--kanji <kanji>]
           yanagi audit <paths...> [--tier2] [--tier3] [--format json|human|yaml] [--out <file>]
           yanagi apply <findings.yml>
+          yanagi check <file> [--anchors <anchors.yml>] [--ukrainian <words.txt>] [--overrides <overrides.yml>] [--format json|human]
           yanagi doc-sync [path/to/transliteration.md]
           yanagi lexicon build --glossary <glossary.org> [--out <file>]
           yanagi lexicon merge <proposal.yml> [--out <file>]

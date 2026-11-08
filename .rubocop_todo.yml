@@ -101,7 +101,9 @@ Metrics/BlockNesting:
 # Offense count: 2
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ClassLength:
-  Max: 276
+  Exclude:
+    - 'lib/yanagi/cli.rb'
+    - 'lib/yanagi/doc_sync.rb'
 
 # Offense count: 18
 # Configuration parameters: AllowedMethods, AllowedPatterns, Max.
@@ -132,7 +134,11 @@ Metrics/MethodLength:
 # Offense count: 4
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ModuleLength:
-  Max: 235
+  Exclude:
+    - 'lib/yanagi/audit.rb'
+    - 'lib/yanagi/cyrillic.rb'
+    - 'lib/yanagi/kana.rb'
+    - 'lib/yanagi/lexicon.rb'
 
 # Offense count: 18
 # Configuration parameters: AllowedMethods, AllowedPatterns, Max.

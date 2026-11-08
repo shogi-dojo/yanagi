@@ -12,6 +12,7 @@ require_relative "yanagi/inflection"
 require_relative "yanagi/doc_sync"
 require_relative "yanagi/lexicon"
 require_relative "yanagi/audit"
+require_relative "yanagi/checker"
 
 module Yanagi
   class Error < StandardError; end
