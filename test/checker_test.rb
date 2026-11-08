@@ -71,6 +71,12 @@ class CheckerTest < Minitest::Test
     assert_empty names.check("Сусою"), "a name in its own case stays when nothing outweighs it"
   end
 
+  def test_a_hyphenated_ukrainian_word_is_left_alone_whole
+    rows = [{ kana: "ごだ", origin: "jmdict", weight: 1 }, { kana: "ごでぃ", origin: "jmdict", weight: 1 }]
+    words = Checker::WordSet.new(%w[вряди-годи])
+    assert_empty Checker.new(anchors: Checker::MemoryAnchors.new(rows), ukrainian: words).check("вряди-годи")
+  end
+
   def test_ukrainian_words_are_left_alone
     assert_empty suggestions("Сьогодні сім разів сюди вчиться ліпити тісто, а сусіди на засіданні.")
   end

@@ -61,6 +61,8 @@ module Yanagi
     # A hyphenated token is checked whole first; unless an override or the
     # dictionary knows it whole, its parts win over a rule guess.
     def check_token(token, start)
+      return [] if token.include?("-") && @ukrainian.include?(token.downcase) && !@overrides.key?(token.downcase)
+
       whole = check_word(token, start)
       return [whole].compact if !token.include?("-") || (whole && whole.kind != :rule)
 
