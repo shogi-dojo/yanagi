@@ -5,6 +5,29 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] — 2026-11-08
+
+### Added
+
+- **`Yanagi::Checker`.** `Checker.new(anchors:, ukrainian:, overrides:)#check(text)`
+  returns `Finding(start, stop, token, suggestion, kind, confidence, source)`
+  for Japanese words spelled against the policy, with character offsets.
+  `kind` is `override`, `dictionary` (an anchor matched by spelling key) or
+  `rule` (forbidden sequences plus Japanese markers, all substituted at once,
+  low confidence). Case endings and letter case are kept: «Хіросіму» →
+  «Хірошіму», «ХІРОСІМОЮ» → «ХІРОШІМОЮ». Words in the Ukrainian list are left
+  alone, and «ті» becomes «чі» only when an anchor confirms it.
+- `Yanagi::Checker::MemoryAnchors` (rows, or `[kana, kanji]` pairs rendered with
+  `Yanagi.cyrillic`) and `Yanagi::Checker::WordSet`. Any object with
+  `lookup(key)` / `include?(word)` can stand in; the gem ships no data.
+- `yanagi check FILE [--anchors x.yml] [--ukrainian words.txt] [--overrides x.yml] [--format json|human]`.
+- **`Yanagi::Key.call(text)`**, the spelling-neutral key from Jibiki's search
+  (`Jibiki::Search::CyrillicKey`), with folds taken from the `forbidden:`
+  lists in `data/mora.yml` (дзі/зі→джі, тсу→цу, ху→фу, ё→ьо, …).
+- **`Yanagi::Inflection`**: `split(token)` into stem + case ending candidates,
+  `bases(stem, ending)` for dictionary forms, and `rejoin(canonical, ending, case_of:)`.
+- A RuboCop config, with a todo file for the existing code.
+
 ## [0.2.0] — 2026-11-07
 
 ### Added
@@ -70,4 +93,6 @@ reaching print.
   the engine was extracted from its predecessor without behaviour change.
 - Zero runtime dependencies; stdlib only.
 
+[0.3.0]: https://github.com/shogi-dojo/yanagi/releases/tag/v0.3.0
+[0.2.0]: https://github.com/shogi-dojo/yanagi/releases/tag/v0.2.0
 [0.1.0]: https://github.com/shogi-dojo/yanagi/releases/tag/v0.1.0
