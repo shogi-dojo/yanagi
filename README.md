@@ -11,6 +11,7 @@ Deterministic Japanese → Ukrainian transliteration and policy enforcement gem.
   - **Tier 1**: AUTOFIX-eligible (matches lexicon entry via forbidden Polivanov/anglicism substitution).
   - **Tier 2**: High-confidence report for unknown Japanese terms (contains JP markers, unanchored in lexicon/allowlist).
   - **Tier 3**: Polivanov markers check (off by default).
+- **Checker**: Finds Japanese words in Ukrainian text spelled against the policy (Polivanov, Russian ё, case endings included) and suggests the canonical form, anchored by a dictionary you supply.
 - **Policy Synchronization (`DocSync`)**: Asserts agreement between markdown policy documents (`shared/transliteration.md`) and executable YAML rules.
 
 ## Corpus data
@@ -105,6 +106,48 @@ findings = Yanagi.audit(["path/to/chapter.org"], tier2: true, tier3: false)
 Yanagi::Audit.apply("audit/findings.yml")
 ```
 
+### Checker
+
+`Yanagi::Checker` finds Japanese words in Ukrainian prose that break the
+policy and suggests the canonical spelling with the case ending and letter case
+kept: «сьочю» → «шьочю», «Хіросіму» → «Хірошіму», «Мейдзі» → «Мейджі».
+
+```ruby
+anchors = Yanagi::Checker::MemoryAnchors.from_pairs(
+  [%w[しょうちゅう 焼酎], %w[ひろしま 広島], %w[めいじ 明治]], origin: "jmdict"
+)
+words = Yanagi::Checker::WordSet.load("uk_words.txt")
+checker = Yanagi::Checker.new(anchors: anchors, ukrainian: words, overrides: { "токіо" => "Токіо" })
+
+checker.check("Ми пили сьочю в Хіросімі.")
+# => [#<struct Finding start=8, stop=13, token="сьочю", suggestion="шьочю",
+#       kind=:dictionary, confidence=0.9, source={kana: "しょうちゅう", kanji: "焼酎", origin: "jmdict"}>,
+#     #<struct Finding start=16, stop=24, token="Хіросімі", suggestion="Хірошімі", ...>]
+```
+
+`start` and `stop` are character offsets (`text[start...stop] == token`). Each
+Cyrillic token (letters, inner apostrophes and hyphens) is checked in order:
+
+1. **`override`** — `overrides` (`{ wrong => right }`) match the token exactly or
+   as stem + case ending, and win over everything else.
+2. Words in the **Ukrainian word list** are skipped («сьогодні», «сім», «тісто»).
+3. **`dictionary`** — every stem + ending split (`Yanagi::Inflection.split`) is
+   looked up by its spelling key (`Yanagi::Key`). A canonical spelling means
+   the token is correct; otherwise the heaviest anchor is suggested.
+4. **`rule`** — a token with forbidden sequences *and* Japanese markers gets
+   every forbidden sequence substituted at once, at low confidence.
+
+The gem ships no word lists or dictionaries. Anchors are any object with
+`lookup(key) → [{ cyrillic:, kana:, kanji:, origin:, weight: }]`, and the
+word list any object with `include?(lower_case_word)`; `MemoryAnchors` and
+`WordSet` are simple in-memory ones. Build anchors from JMdict / JMnedict
+readings with `MemoryAnchors.from_pairs`, which renders each with
+`Yanagi.cyrillic`.
+
+`Yanagi::Key.call(text)` is the spelling-neutral key on its own, for search
+indexes: «Фудзі», «фуджі» and «ФУДЖІ» share one. Its folds come from the
+`forbidden:` lists in `data/mora.yml`; «ті» stays, since yanagi writes ティ so.
+
 ### Policy Agreement Check
 
 ```ruby
@@ -127,6 +170,10 @@ yanagi audit books/meijin/translation/ua --out audit/findings.yml
 
 # Applying approved findings
 yanagi apply audit/findings.yml
+
+# Checking a text against your own anchors and word list (exit 1 on findings)
+yanagi check chapter.md --anchors anchors.yml --ukrainian uk_words.txt
+yanagi check chapter.md --overrides overrides.yml --format json
 
 # Document synchronization & gold verification
 yanagi doc-sync shared/transliteration.md

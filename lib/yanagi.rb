@@ -7,9 +7,12 @@ require_relative "yanagi/mora"
 require_relative "yanagi/romaji"
 require_relative "yanagi/kana"
 require_relative "yanagi/cyrillic"
+require_relative "yanagi/key"
+require_relative "yanagi/inflection"
 require_relative "yanagi/doc_sync"
 require_relative "yanagi/lexicon"
 require_relative "yanagi/audit"
+require_relative "yanagi/checker"
 
 module Yanagi
   class Error < StandardError; end

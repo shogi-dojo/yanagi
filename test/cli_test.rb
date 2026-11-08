@@ -3,6 +3,7 @@
 require "test_helper"
 require "open3"
 require "json"
+require "tmpdir"
 
 class CLITest < Minitest::Test
   EXE_PATH = File.expand_path("../exe/yanagi", __dir__)
@@ -57,5 +58,28 @@ class CLITest < Minitest::Test
     out, _, status = run_cli("verify-gold", glossary_path)
     assert status.success?
     assert_includes out, "All gold pairs verified successfully!"
+  end
+
+  def test_cli_check
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, "text.txt")
+      File.write(path, "Ми пили сьочю.\nУ Хіросіму, сьогодні!\n")
+      anchors = File.expand_path("fixtures/checker/anchors.yml", __dir__)
+      words = File.expand_path("fixtures/checker/ukrainian.txt", __dir__)
+      out, _, status = run_cli("check", path, "--anchors", anchors, "--ukrainian", words)
+      refute status.success?
+      assert_equal ["#{path}:1:9: сьочю -> шьочю (dictionary, 0.9)",
+                    "#{path}:2:3: Хіросіму -> Хірошіму (dictionary, 0.9)"], out.lines.map(&:chomp)
+    end
+  end
+
+  def test_cli_check_clean_file_json
+    Dir.mktmpdir do |dir|
+      path = File.join(dir, "text.txt")
+      File.write(path, "Суші в Хірошімі.\n")
+      out, _, status = run_cli("check", path, "--format", "json")
+      assert status.success?
+      assert_equal [], JSON.parse(out)
+    end
   end
 end
