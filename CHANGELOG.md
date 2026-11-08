@@ -5,6 +5,16 @@ All notable changes to this project are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] — 2026-11-08
+
+### Fixed
+
+- **Checker: a light exact match no longer hides a heavier correction.** With a large name list
+  (JMnedict) a Polivanov form often spells some rare name exactly in some case: «сусі» is the
+  locative of «Суса» (すさ). Such a token now counts as correct only when no heavier anchor spells
+  it otherwise, so すし still makes it «суші». A match that needs a case ending weighs 0.9 of a
+  bare one.
+
 ## [0.3.0] — 2026-11-08
 
 ### Added

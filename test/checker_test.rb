@@ -54,6 +54,23 @@ class CheckerTest < Minitest::Test
     end
   end
 
+  # A rare name in some case can spell a Polivanov form exactly («Суса» → «сусі»); the heavier,
+  # common word still wins. An equally heavy exact spelling keeps the token.
+  def test_a_heavier_anchor_beats_a_light_exact_match
+    rows = [
+      { kana: "すし", kanji: "寿司", origin: "jmdict", weight: 2 },
+      { kana: "すさ", kanji: "須佐", origin: "jmnedict", weight: 0.5 },
+      { kana: "めいじ", kanji: "明治", origin: "jmdict", weight: 2 },
+      { kana: "めいざ", origin: "jmnedict", weight: 0.5 }
+    ]
+    found = Checker.new(anchors: Checker::MemoryAnchors.new(rows)).check("сусі за Мейдзі")
+    pairs = found.map { |f| [f.token, f.suggestion] }
+    assert_equal [%w[сусі суші], %w[Мейдзі Мейджі]], pairs
+
+    names = Checker.new(anchors: Checker::MemoryAnchors.new([{ kana: "すさ", weight: 1 }, { kana: "すし", weight: 1 }]))
+    assert_empty names.check("Сусою"), "a name in its own case stays when nothing outweighs it"
+  end
+
   def test_ukrainian_words_are_left_alone
     assert_empty suggestions("Сьогодні сім разів сюди вчиться ліпити тісто, а сусіди на засіданні.")
   end
