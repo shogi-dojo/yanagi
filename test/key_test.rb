@@ -19,8 +19,14 @@ class KeyTest < Minitest::Test
     "дзудзу" => "зузу", "шінджюку" => "Сіндзюку", "джьо" => "зьо", "ґьоза" => "гёдза"
   }.freeze
 
+  # Spellings found missing against Warodai's Polivanov readings.
+  WARODAI_FOLDS = {
+    "суіка" => "суйка", "сусухарай" => "сусухараі", "кавайі" => "каваї", "мукайнамі" => "мукаінамі",
+    "енмей" => "еммей", "шімбун" => "шінбун", "кікембуцу" => "кікенбуцу"
+  }.freeze
+
   def test_yanagi_and_everyday_spellings_share_a_key
-    SAME_KEY.merge(FORBIDDEN_FOLDS).each do |yanagi, typed|
+    SAME_KEY.merge(FORBIDDEN_FOLDS, WARODAI_FOLDS).each do |yanagi, typed|
       assert_equal key(yanagi), key(typed), "#{typed} should key like #{yanagi}"
     end
   end
@@ -29,6 +35,11 @@ class KeyTest < Minitest::Test
     refute_equal key("паті"), key("пачі")
     assert_equal "сакура", key("сакура")
     assert_equal "токіо", key("Токіо")
+  end
+
+  def test_keeps_short_i_before_a_vowel
+    assert_equal "майа", key("майа")
+    refute_equal key("йокай"), key("іокай")
   end
 
   def test_dza_is_not_folded_twice

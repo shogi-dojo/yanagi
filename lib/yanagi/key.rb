@@ -23,14 +23,23 @@ module Yanagi
     HUSHED_PATTERN = /([жчшщ])(ьо|я|ю|є)/
     APOSTROPHES = "'ʼ’`"
 
+    # い after a vowel: yanagi writes «ай», «суі»; people also write «аі», «суй», «аї». The key
+    # reads them all as vowel + «і».
+    VOWEL_I = /(?<=[аеиоуяюєі])(?:йі|ї|й(?![аеиоуяюєії]))/
+
+    # ん before б, п, м: yanagi writes «м» only before п and б («шімбун», «енмей»); Polivanov
+    # also has «еммей». The key reads «м» before a labial as «н».
+    LABIAL_N = /м(?=[бпм])/
+
     module_function
 
     # The key: lower case, no apostrophes, forbidden spellings folded to the
-    # canonical ones, ґ read as г, hushed vowels plain, doubled letters single.
+    # canonical ones, ґ read as г, hushed vowels plain, い after a vowel as «і»,
+    # «м» before a labial as «н», doubled letters single.
     def call(text)
       key = respell(text.downcase.delete(APOSTROPHES)).tr("ґ", "г")
       key = key.gsub(HUSHED_PATTERN) { "#{Regexp.last_match(1)}#{HUSHED.fetch(Regexp.last_match(2))}" }
-      key.squeeze
+      key.gsub(VOWEL_I, "і").gsub(LABIAL_N, "н").squeeze
     end
 
     # Replaces every forbidden sequence in a lower-case +text+ with its

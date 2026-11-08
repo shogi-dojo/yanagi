@@ -29,6 +29,9 @@ module Yanagi
 
     CONFIDENCE = { override: 1.0, dictionary: 0.9, rule: 0.3 }.freeze
 
+    # How much a dictionary match that needs a case ending counts against a bare one.
+    INFLECTED = 0.9
+
     # Sequences that only the Japanese rows produce. Unlike Audit::JP_MARKERS
     # this leaves out C + я/ю/ьо (ня, ря, ньо), which are everyday Ukrainian.
     MARKERS = %w[
@@ -58,6 +61,8 @@ module Yanagi
     # A hyphenated token is checked whole first; unless an override or the
     # dictionary knows it whole, its parts win over a rule guess.
     def check_token(token, start)
+      return [] if token.include?("-") && @ukrainian.include?(token.downcase) && !@overrides.key?(token.downcase)
+
       whole = check_word(token, start)
       return [whole].compact if !token.include?("-") || (whole && whole.kind != :rule)
 
@@ -106,18 +111,34 @@ module Yanagi
       nil
     end
 
+    # A token spelled exactly like an anchor is correct, unless a heavier anchor spells it
+    # otherwise: «сусі» is the locative of a rare name «Суса» (すさ), but the common word すし
+    # makes it «суші». A match that needs an ending weighs a little less than a bare one.
     def dictionary(token, forms)
+      hits = dictionary_hits(token, forms)
+      return if hits.empty?
+
+      same, other = hits.partition { |_, word, _| word.downcase == token.downcase }
+      return :correct if other.empty?
+
+      row, word, weight = other.each_with_index.max_by { |(_, _, hit_weight), index| [hit_weight, -index] }.first
+      return :correct if same.any? { |_, _, same_weight| same_weight >= weight }
+
+      [word, :dictionary, source_of(**row.slice(:kana, :kanji, :origin))]
+    end
+
+    # [row, the token respelled by it, weight] for every anchor of every stem + ending split.
+    def dictionary_hits(token, forms)
       hits = []
       each_base(forms) do |base, ending|
         lookup_keys(base).each do |key|
-          @anchors.lookup(key).each { |row| hits << [row, Inflection.rejoin(row[:cyrillic], ending, case_of: token)] }
+          @anchors.lookup(key).each do |row|
+            weight = row[:weight].to_f * (ending.empty? ? 1.0 : INFLECTED)
+            hits << [row, Inflection.rejoin(row[:cyrillic], ending, case_of: token), weight]
+          end
         end
       end
-      return if hits.empty?
-      return :correct if hits.any? { |_, word| word.downcase == token.downcase }
-
-      row, word = hits.each_with_index.max_by { |(hit_row, _), index| [hit_row[:weight].to_f, -index] }.first
-      [word, :dictionary, source_of(**row.slice(:kana, :kanji, :origin))]
+      hits
     end
 
     def rule(token)
