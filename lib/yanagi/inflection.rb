@@ -12,6 +12,18 @@ module Yanagi
       и і ї у ю а я
     ].sort_by { |ending| -ending.length }.freeze
 
+    # Ukrainian words built on a Japanese one: «сьогунат», «сьогунату», «хіросімський». The
+    # suffix with each ending it takes; the base keeps its last letter unless that is а or я
+    # (Хірошім-а → хірошім-ський, but самурай → самурай-ський).
+    DERIVED = {
+      "ат" => %w[ами ам ах ом ів а у і и],
+      "ськ" => %w[ими ого ому ий им ім их ої ій ою а е і у]
+    }.freeze
+    DERIVED_ENDINGS = DERIVED.flat_map { |suffix, tails| [suffix, *tails.map { |tail| suffix + tail }] }
+                             .reject { |ending| ending == "ськ" }
+                             .sort_by { |ending| -ending.length }.freeze
+    DERIVED_THEME_LETTERS = %w[а я].freeze
+
     # The shortest stem worth looking up.
     MIN_STEM_LENGTH = 3
 
@@ -26,7 +38,7 @@ module Yanagi
     def split(token)
       lower = token.downcase
       candidates = [[token, ""]]
-      ENDINGS.each do |ending|
+      (ENDINGS + DERIVED_ENDINGS).each do |ending|
         next unless lower.end_with?(ending) && lower.length - ending.length >= MIN_STEM_LENGTH
 
         candidates << [token[0...(token.length - ending.length)], token[(token.length - ending.length)..]]
@@ -38,6 +50,7 @@ module Yanagi
     # its ending replaced. A bare token is its own dictionary form.
     def bases(stem, ending)
       return [stem] if ending.empty?
+      return [stem] + DERIVED_THEME_LETTERS.map { |letter| stem + letter } if derived?(ending)
 
       [stem] + THEME_LETTERS.map { |letter| stem + letter }
     end
@@ -47,11 +60,14 @@ module Yanagi
     def rejoin(canonical, ending, case_of:)
       word = canonical
       unless ending.empty?
-        word = word[0...-1] if THEME_LETTERS.include?(word[-1]&.downcase)
+        theme = derived?(ending) ? DERIVED_THEME_LETTERS : THEME_LETTERS
+        word = word[0...-1] if theme.include?(word[-1]&.downcase)
         word += ending.downcase
       end
       apply_case(word, like: case_of)
     end
+
+    def derived?(ending) = DERIVED_ENDINGS.include?(ending.downcase)
 
     def apply_case(word, like:)
       letters = like.scan(/\p{L}/).join

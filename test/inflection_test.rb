@@ -22,6 +22,12 @@ class InflectionTest < Minitest::Test
     assert_equal ["", "ями", "и"], endings
   end
 
+  def test_splits_a_word_built_on_a_japanese_one
+    assert_includes split("сьогунат"), ["сьогун", "ат"]
+    assert_includes split("сьогунатом"), ["сьогун", "атом"]
+    assert_includes split("хіросімського"), ["хіросім", "ського"]
+  end
+
   def test_keeps_a_minimum_stem
     assert_equal [["суші", ""], ["суш", "і"]], split("суші")
     assert_equal [["ґо", ""]], split("ґо")
@@ -39,7 +45,11 @@ class InflectionTest < Minitest::Test
     ["самурай", "ями", "самураями", "самураями"],
     ["ніхон", "у", "Ніхону", "Ніхону"],
     ["суші", "", "Сусі", "Суші"],
-    ["шьочю", "", "сьочю", "шьочю"]
+    ["шьочю", "", "сьочю", "шьочю"],
+    ["шьоґун", "ат", "сьогунат", "шьоґунат"],
+    ["шьоґун", "атом", "Сьогунатом", "Шьоґунатом"],
+    ["хірошіма", "ський", "хіросімський", "хірошімський"],
+    ["самурай", "ський", "самураський", "самурайський"]
   ].freeze
 
   def test_rejoin_puts_the_ending_back_in_the_token_case
