@@ -35,6 +35,10 @@ class CheckerTest < Minitest::Test
     ["Тсусіма", "Цушіма", :dictionary], # two errors: тсу and сі
     ["Мітіко", "Мічіко", :dictionary], # ті → чі only because an anchor says so
     ["Сіндзюку", "Шінджюку", :dictionary],
+    ["сьогунат", "шьоґунат", :dictionary], # a Ukrainian word built on 将軍
+    ["сьогунатом", "шьоґунатом", :dictionary],
+    ["Хіросімський", "Хірошімський", :dictionary],
+    ["хіросімської", "хірошімської", :dictionary],
     ["Кйото", nil, nil],
     ["Хіґасі", "Хіґаші", :rule],
     ["Сімадзу", "Шімадзу", :rule],
@@ -49,7 +53,8 @@ class CheckerTest < Minitest::Test
   end
 
   def test_canonical_spellings_are_left_alone
-    %w[шьочю Хірошіму Мейджі Фуджі Шідзуока суші Цушіма Мічіко Шінджюку Кіото].each do |token|
+    %w[шьочю Хірошіму Мейджі Фуджі Шідзуока суші Цушіма Мічіко Шінджюку Кіото шьоґунат хірошімський
+       самурайський].each do |token|
       assert_empty suggestions(token), token
     end
   end
